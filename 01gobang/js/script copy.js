@@ -85,13 +85,57 @@ for (let i = 0; i < count; i++) {
 }
 
 // 找到 <canvas> 元素
-var chess = document.getElementById('chess');
+var chess = document.getElementById('chess')
 // 创建 context 对象
 // getContext("2d") 对象是内建的 HTML5 对象，拥有多种绘制路径、矩形、圆形、字符以及添加图像的方法。
-var context = chess.getContext('2d');
+var context = chess.getContext('2d')
 
 // 修改线的颜色
-context.strokeStyle = '#BFBFBF';
+context.strokeStyle = '#BFBFBF'
+
+// moveTo(x,y) 定义线条开始坐标
+// lineTo(x,y) 定义线条结束坐标
+// 用 stroke() 方法来绘制线条
+// context.moveTo(0,0);
+// context.lineTo(450,450);
+// context.stroke();
+
+// 画水印
+// var logo = new Image();
+// logo.src = './img/logo.jpg';
+// // 图片加载完 才能做其他的事情
+// logo.onload = function () {
+//     // context.drawImage(img,x,y,width,height);
+//     context.drawImage(logo, 0, 0, 450, 450);
+
+//     drawChessBoard();
+//     oneStep(0, 0, true)
+//     oneStep(1, 1, false)
+
+
+// 画棋子
+// context.beginPath();
+// // context.arc(x,y,r,sAngle,eAngle,counterclockwise);
+// // 画扇形/圆 圆心坐标，半径，起止角度
+// context.arc(200, 200, 100, 0, 2 * Math.PI)
+// context.closePath();
+
+// // 棋子设置渐变
+// // context.createRadialGradient(x0,y0,r0,x1,y1,r1);
+// // 渐变开始 结束的圆的圆心坐标、半径
+// var gradient = context.createRadialGradient(200, 200, 50, 200, 200, 20)
+// // 0和1 开始和结束的时候的颜色
+// // 圆外边
+// gradient.addColorStop(0, "#0A0A0A")
+// // 圆中心
+// gradient.addColorStop(1, "#636766")
+// context.fillStyle = gradient;
+
+// // 设置fill的颜色
+// // context.fillStyle = "#636766";
+// // fill填充   stroke描边
+// context.fill();
+// }
 
 // 画棋盘
 var drawChessBoard = function () {
@@ -144,9 +188,6 @@ chess.onclick = function (e) {
     if (over) {
         return false;
     }
-    if (!me) {
-        return false;
-    }
     // 相对于棋盘的xy
     var x = e.offsetX;
     var y = e.offsetY;
@@ -155,114 +196,26 @@ chess.onclick = function (e) {
     var j = Math.floor(y / 30);
 
     if (chessBoard[i][j] === 0) {
-        oneStep(i, j, me);
-        chessBoard[i][j] = 1;
-        for (let k = 0; k < count; k++) {
-            if (wins[i][j][k]) {
-                myWin[k]++;
-                computerWin[k] = 6;
-                if (myWin[k] === 5) {
-                    setTimeout(() => {
-                        window.alert("你赢了")
-                    }, 500)
-                    over = true;
+        oneStep(i, j, me)
+        if (me) {  //黑棋置为1
+            chessBoard[i][j] = 1;
+            for (let k = 0; k < count; k++) {
+                if (wins[i][j][k]) {
+                    myWin[k]++;
+                    computerWin[k] = 6;
+                    if (myWin[k] === 5) {
+                        setTimeout(() => {
+                            window.alert("你赢了")
+                        }, 500)
+                        over = true;
+                    }
                 }
             }
+        } else { //白棋置为2
+            chessBoard[i][j] = 2;
         }
-    }
-
-    if (!over) {
         me = !me;
-        computerAI();
-    }
-}
 
-var computerAI = function () {
-    var myScore = [];
-    var computerScore = [];
-    // 最高得分
-    var max = 0;
-    // 最高得分的坐标
-    var u = 0, v = 0;
-
-    // 得分初始化
-    for (let i = 0; i < 15; i++) {
-        myScore[i] = [];
-        computerScore[i] = [];
-        for (let j = 0; j < 15; j++) {
-            myScore[i][j] = 0;
-            computerScore[i][j] = 0;
-        }
     }
-    // 设置对应的得分
-    for (let i = 0; i < 15; i++) {
-        for (let j = 0; j < 15; j++) {
-            if (chessBoard[i][j] == 0) {
-                for (let k = 0; k < count; k++) {
-                    if (wins[i][j][k]) {
-                        // 我方
-                        if (myWin[k] == 1) {
-                            myScore[i][j] += 200;
-                        } else if (myWin[k] == 2) {
-                            myScore[i][j] += 1000;
-                        } else if (myWin[k] == 3) {
-                            myScore[i][j] += 2000;
-                        } else if (myWin[k] == 4) {
-                            myScore[i][j] += 10000;
-                        }
-                        // 计算机
-                        if (computerWin[k] == 1) {
-                            computerScore[i][j] += 220;
-                        } else if (computerWin[k] == 2) {
-                            computerScore[i][j] += 840;
-                        } else if (computerWin[k] == 3) {
-                            computerScore[i][j] += 2100;
-                        } else if (computerWin[k] == 4) {
-                            computerScore[i][j] += 15000;
-                        }
-                    }
-                }
 
-                if (myScore[i][j] > max) {
-                    max = myScore[i][j];
-                    u = i;
-                    v = j;
-                } else if (myScore[i][j] == max) {
-                    if (computerScore[i][j] > computerScore[u][v]) {
-                        u = i;
-                        v = j;
-                    }
-                }
-
-                if (computerScore[i][j] > max) {
-                    max = computerScore[i][j];
-                    u = i;
-                    v = j;
-                } else if (computerScore[i][j] == max) {
-                    if (myScore[i][j] > myScore[u][v]) {
-                        u = i;
-                        v = j;
-                    }
-                }
-            }
-        }
-    }
-    oneStep(u, v, false);
-    chessBoard[u][v] = 2;
-
-    for (let k = 0; k < count; k++) {
-        if (wins[u][v][k]) {
-            computerWin[k]++;
-            myWin[k] = 6;
-            if (computerWin[k] === 5) {
-                setTimeout(() => {
-                    window.alert("计算机赢了")
-                }, 500)
-                over = true;
-            }
-        }
-    }
-    if (!over) {
-        me = !me;
-    }
 }
