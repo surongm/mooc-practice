@@ -1,12 +1,87 @@
 var me = true;
 // 定义一个变量 存储已经下了的棋子的位置
-var chessBoard = []
+var chessBoard = [];
+// 赢法数组
+var wins = [];
+var count = 0;
+// 赢法的统计数组
+var myWin = [];  //我方赢
+var computerWin = [];
+// 赢的标志
+var over = false;
+
 // 初始的时候棋盘全置为0 
 for (let i = 0; i < 15; i++) {
     chessBoard[i] = [];
     for (let j = 0; j < 15; j++) {
         chessBoard[i][j] = 0;
     }
+}
+
+// 赢法数组
+for (let i = 0; i < 15; i++) {
+    wins[i] = [];
+    for (let j = 0; j < 15; j++) {
+        wins[i][j] = [];
+    }
+}
+
+// 所有的横线的赢法
+for (let i = 0; i < 15; i++) {
+    for (let j = 0; j < 11; j++) {
+        for (let k = 0; k < 5; k++) {
+            wins[i][j + k][count] = true
+            // count表示第0种赢法
+            // wins[0][0][0] = true
+            // wins[0][1][0] = true
+            // wins[0][2][0] = true
+            // wins[0][3][0] = true
+            // wins[0][4][0] = true
+
+            // wins[0][0][1] = true
+            // wins[0][1][1] = true
+            // wins[0][2][1] = true
+            // wins[0][3][1] = true
+            // wins[0][4][1] = true
+        }
+        count++;
+    }
+}
+// 所有的竖线的赢法
+for (let i = 0; i < 15; i++) {
+    for (let j = 0; j < 11; j++) {
+        for (let k = 0; k < 5; k++) {
+            wins[j + k][i][count] = true
+        }
+        count++;
+    }
+}
+// 所有的斜线的赢法
+for (let i = 0; i < 11; i++) {
+    for (let j = 0; j < 11; j++) {
+        for (let k = 0; k < 5; k++) {
+            wins[i + k][j + k][count] = true
+        }
+        count++;
+    }
+}
+// 所有的反斜线的赢法
+for (let i = 0; i < 11; i++) {
+    for (let j = 14; j > 3; j--) {
+        for (let k = 0; k < 5; k++) {
+            wins[i + k][j - k][count] = true
+        }
+        count++;
+    }
+}
+
+// 五子棋总共的赢法
+console.log(count)
+
+// 赢的数组的初始化
+for (let i = 0; i < count; i++) {
+    myWin[i] = 0;
+    computerWin[i] = 0;
 }
 
 // 找到 <canvas> 元素
@@ -109,6 +184,10 @@ drawChessBoard();
 // oneStep(1, 1, false)
 
 chess.onclick = function (e) {
+    // 判断是否结束
+    if (over) {
+        return false;
+    }
     // 相对于棋盘的xy
     var x = e.offsetX;
     var y = e.offsetY;
@@ -120,10 +199,23 @@ chess.onclick = function (e) {
         oneStep(i, j, me)
         if (me) {  //黑棋置为1
             chessBoard[i][j] = 1;
+            for (let k = 0; k < count; k++) {
+                if (wins[i][j][k]) {
+                    myWin[k]++;
+                    computerWin[k] = 6;
+                    if (myWin[k] === 5) {
+                        setTimeout(() => {
+                            window.alert("你赢了")
+                        }, 500)
+                        over = true;
+                    }
+                }
+            }
         } else { //白棋置为2
             chessBoard[i][j] = 2;
         }
         me = !me;
+
     }
 
 }
