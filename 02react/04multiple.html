@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>multiple</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0px;
+        }
+
+        #example {
+            padding: 50px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="example"></div>
+    <script type="text/babel">
+        // 颜色小方块
+        var Square = (props) => {
+            let squareStyle = {
+                height: 150,
+                backgroundColor: props.color
+            }
+            return (
+                <div style={squareStyle}>
+
+                </div>
+            )
+        }
+
+        // 颜色颜色值
+        var Label = (props) => {
+            let labelStyle = {
+                fontFamily: 'sans-serif',
+                fontWeight: 'bold',
+                padding: 13,
+                margin: 0
+            }
+            return (
+                <div style={labelStyle}>
+                    <p>{props.color}</p>
+                </div>
+            )
+        }
+
+        // 卡片
+        var Card = (props) => {
+            let cardStyle = {
+                height: 200,
+                width: 150,
+                backgroundColor: "#FFF",
+                WebkitFilter: 'drop-shadow(0px 0px 5px #666)',
+                filter: 'drop-shadow(0px 0px 5px #666)'
+            }
+            return (
+                <div style={cardStyle}>
+                    <Square color={props.color} />
+                    <Label color={props.color} />
+                </div>
+            )
+        }
+
+        ReactDOM.render(
+            <Card color='#FFA737' />,
+            // <Card color='#FF6663' />,
+            document.querySelector('#example')
+        );
+    </script>
+</body>
+
+</html>

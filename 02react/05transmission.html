@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>multiple</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0px;
+        }
+
+        #example {
+            padding: 50px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="example"></div>
+    <script type="text/babel">
+    //  https://www.processon.com/  画流程图地址
+        // 颜色小方块
+        var Square = (props) => {
+            return (
+                <div style={squareStyle}>
+
+                </div>
+            )
+        }
+
+        // 颜色颜色值
+        var Label = (props) => {
+            return (
+                <div style={labelStyle}>
+                    <p>{props.color}</p>
+                </div>
+            )
+        }
+
+        // 卡片
+        var Card = (props) => {
+
+            return (
+                <div style={cardStyle}>
+                    <Square color={props.color} />
+                    <Label color={props.color} />
+                </div>
+            )
+        }
+
+        ReactDOM.render(
+            <Card color='#FFA737' />,
+            document.querySelector('#example')
+        );
+    </script>
+</body>
+
+</html>

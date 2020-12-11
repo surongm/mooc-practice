@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>style</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0px;
+        }
+
+        #example {
+            padding: 50px;
+            background-color: #fff;
+        }
+
+        /* .letter {
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            padding: 10px;
+            margin: 10px;
+            display: inline-block;
+            background-color: #ffde00;
+            color: #333;
+            font-family: monospace;
+            font-size: 32px;
+            text-align: center;
+        } */
+    </style>
+</head>
+
+<body>
+    <div id="example"></div>
+    <script type="text/babel">
+        var Letter = (props) => {
+            let letterStyle = {
+                width: "100px",
+                height: "100px",
+                lineHeight: "100px",
+                padding: "10px",
+                margin: "10px",
+                display: "inline-block",
+                // backgroundColor: "#ffde00",
+                backgroundColor: props.bgcolor,
+                color: "#333",
+                fontFamily: "monospace",
+                fontSize: "32px",
+                textAlign: "center",
+            }
+            return (
+                // 类名必须用className class是关键字
+                <div style={letterStyle}>
+                    <h1>{props.children}</h1>
+                </div>
+            )
+        }
+
+        ReactDOM.render(
+            <div>
+                <Letter bgcolor='#58B3FF'>H</Letter>
+                <Letter bgcolor='#FF605F'>E</Letter>
+                <Letter bgcolor='#FFD52E'>L</Letter>
+                <Letter bgcolor='#49DD8E'>L</Letter>
+                <Letter bgcolor='#AE99FF'>O</Letter>
+            </div>,
+            document.querySelector('#example')
+        );
+    </script>
+</body>
+
+</html>
