@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>add</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0px;
+        }
+
+        #example {
+            padding: 50px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="example"></div>
+    <script type="text/babel">
+        // var Counter = (props) => {
+        //     let textStyle = {
+        //         fontSize: 72,
+        //         fontFamily: 'sans-serif',
+        //         color: "#333",
+        //         fontWeight: 'bold'
+        //     }
+
+        //     return (
+        //         <div style={textStyle}>
+        //             {props.display}
+        //         </div>
+        //     )
+        // }
+
+        // 子组件
+        class Counter extends React.Component {
+            constructor(props) {
+                super(props);
+            }
+
+            componentWillReceiveProps(newProps) {
+                console.log('Counter componentWillReceiveProps')
+            }
+
+            shouldComponentUpdate(newProps, newState) {
+                console.log('Counter shouldComponentUpdate');
+                console.log(newProps, newState)
+                return true;
+            }
+
+            componentWillUpdate(prevProps, prevState) {
+                console.log('Counter componentWillUpdate')
+            }
+
+            componentDidUpdate(prevProps, prevState) {
+                console.log('Counter componentDidUpdate')
+            }
+
+            render() {
+                let textStyle = {
+                    fontSize: 72,
+                    fontFamily: 'sans-serif',
+                    color: "#333",
+                    fontWeight: 'bold'
+                }
+
+                return (
+                    <div style={textStyle}>
+                        {this.props.display}
+                    </div>
+                )
+            }
+        }
+
+        class CounterParent extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    count: 0
+                }
+            }
+
+            componentWillMount() {
+                console.log('componentWillMount')
+            }
+
+            componentDidMount() {
+                console.log('componentDidMount')
+            }
+
+            shouldComponentUpdate(newProps, newState) {
+                console.log('shouldComponentUpdate');
+                console.log(newProps, newState)
+                // return true;
+
+                // 渲染组件的关键
+                if (newState.count < 5) {
+                    console.log('Component should update');
+                    return true;
+                } else {
+                    console.log('Component should not update');
+                    // 组件卸载
+                    ReactDOM.unmountComponentAtNode(document.querySelector('#example'))
+                    return false;
+                }
+            }
+
+            componentWillUpdate(prevProps, prevState) {
+                console.log('componentWillUpdate')
+            }
+
+            componentDidUpdate(prevProps, prevState) {
+                console.log('componentDidUpdate')
+            }
+
+            componentwillUnmount() {
+                console.log('componentwillUnmount')
+            }
+
+            increase = () => {
+                this.setState({
+                    count: this.state.count + 1
+                })
+            }
+
+            render() {
+                let backgroundStyle = {
+                    padding: 50,
+                    border: "#333 2px dotted",
+                    width: 250,
+                    height: 100,
+                    borderRadius: 10,
+                    textAlign: 'center'
+                }
+                return (
+                    <div style={backgroundStyle}>
+                        <Counter display={this.state.count} />
+                        <button onClick={this.increase}> + </button>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <CounterParent />,
+            document.querySelector('#example')
+        );
+    </script>
+</body>
+
+</html>

@@ -24,38 +24,34 @@
 <body>
     <div id="example"></div>
     <script type="text/babel">
-    //  https://www.processon.com/  画流程图地址
-        // 颜色小方块
-        var Square = (props) => {
+        //  https://www.processon.com/  画流程图地址
+        // 子子组件
+        var Display = (props) => {
             return (
-                <div style={squareStyle}>
-
-                </div>
-            )
-        }
-
-        // 颜色颜色值
-        var Label = (props) => {
-            return (
-                <div style={labelStyle}>
+                <div>
+                    <p>{props.name}</p>
+                    <p>{props.url}</p>
                     <p>{props.color}</p>
                 </div>
             )
         }
 
-        // 卡片
-        var Card = (props) => {
-
+        // 子组件
+        var Label = (props) => {
             return (
-                <div style={cardStyle}>
-                    <Square color={props.color} />
-                    <Label color={props.color} />
-                </div>
+                <Display {...props} />
+            )
+        }
+
+        // 父组件
+        var Card = (props) => {
+            return (
+                <Label {...props} />
             )
         }
 
         ReactDOM.render(
-            <Card color='#FFA737' />,
+            <Card color='deepblue' name='张三' url='www.baidu.com' />,
             document.querySelector('#example')
         );
     </script>

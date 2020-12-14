@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0px;
+        }
+
+        #example {
+            padding: 50px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="example"></div>
+    <script type="text/babel">
+        class Lifecom extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    text: "render"
+                }
+            }
+
+            componentWillMount() {
+                console.log('componentWillMount')
+            }
+
+            componentDidMount() {
+                console.log('componentDidMount')
+            }
+
+            componentWillReceiveProps(newProps) {
+                console.log('componentWillReceiveProps')
+            }
+
+            shouldComponentUpdate(newProps, newState) {
+                console.log('shouldComponentUpdate');
+                return true;
+            }
+
+            componentWillUpdate(prevProps, prevState) {
+                console.log('componentWillUpdate')
+            }
+
+            componentDidUpdate(prevProps, prevState) {
+                console.log('componentDidUpdate')
+            }
+
+            componentwillUnmount() {
+                console.log('componentwillUnmount')
+            }
+
+            render() {
+                return (
+                    <div>
+                        <h1>{this.state.text}</h1>
+                        <h1>{this.props.text}</h1>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <Lifecom text="props" />,
+            document.querySelector('#example')
+        );
+    </script>
+</body>
+
+</html>
