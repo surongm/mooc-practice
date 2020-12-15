@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>websocket</title>
+</head>
+
+<body>
+    <div>
+        <h1>Echo Test</h1>
+        <input id='sendText' type='text'>
+        <button id="sendBtn">发送</button>
+    </div>
+    <div id="recv">
+
+    </div>
+
+    <script>
+        let sendText = document.getElementById('sendText');
+        let sendBtn = document.getElementById('sendBtn');
+        let recv = document.getElementById('recv');
+
+        // 新建一个websocket连接
+        // "ws://localhost:8081/"  
+        let websocket = new WebSocket("ws://localhost:8001/");
+        // let websocket = new WebSocket("ws://echo.websocket.org/");
+        
+        // 连接成功后的回调
+        websocket.onopen = () => {
+            console.log('websocket open');
+            recv.innerHTML = 'Connected';
+        }
+
+        // 关闭连接
+        websocket.onclose = () => {
+            console.log('websocket close');
+        }
+
+        // 接受到数据之后的回调
+        websocket.onmessage = (e) => {
+            console.log(e.data);
+            recv.innerHTML = e.data;
+        }
+
+        sendBtn.onclick = () => {
+            let text = sendText.value;
+            // 发送数据
+            websocket.send(text);
+        }
+
+    </script>
+</body>
+
+</html>
