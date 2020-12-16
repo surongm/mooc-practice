@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circle</title>
+    <style>
+        #container {
+            padding: 50px;
+            background-color: #FFF;
+        }
+    </style>
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="container">
+
+    </div>
+
+    <script type="text/babel">
+        let destination = document.querySelector('#container');
+
+        let Circle = (props) => {
+            let circleStyle = {
+                width: '100px',
+                height: '100px',
+                padding: 10,
+                margin: 20,
+                display: 'inline-block',
+                backgroundColor: props.bgColor,
+                borderRadius: '50%',
+            }
+            return (
+                <div style={circleStyle}>
+
+                </div>
+            )
+        }
+
+        function showCircle() {
+            let colors = ['#393E41', "#E94F37", "#1C89BF", "#A1D363"];
+            let ran = Math.floor(Math.random() * colors.length);
+            return <Circle bgColor={colors[ran]} />
+        }
+
+        // 随机获取全部颜色
+        function showAllColorCircle() {
+            let random = Math.floor(Math.random() * 16777215).toString(16);
+            // 不可以用len做参数 是因为 截取的只有len位数  而真正要的是6位数
+            // random = (Array(len).join('0') + random).slice(-len);
+
+            // 也可以使用substr
+            // random = random < 6 ? (Array(6).join('0') + random).也可以使用substr(-6) : random;
+            random = random.length < 6 ? (Array(6).join('0') + random).slice(-6) : random;
+            let color = `#${random}`;
+
+            return <Circle bgColor={color} />
+        }
+
+        // 随机获取全部颜色
+        // function showAllColorCircle() {
+        //     let random = Math.floor(Math.random() * 16777215).toString(16);
+        //     random = random.length < 6 ? (Array(6).join('0') + random).slice(-6) : random;
+        //     let color = `#${random}`;
+
+        //     return <Circle bgColor={color} />
+        // }
+
+        // let theCircle = <Circle bgColor="#F9D240" />;
+
+        ReactDOM.render(
+            // <Circle bgColor="#F9D240" />,
+            // { theCircle },
+            // <div>
+            //     {showCircle()}
+            //     {showCircle()}
+            //     {showCircle()}
+            // </div>,
+            <div>
+                {showAllColorCircle()}
+                {showAllColorCircle()}
+                {showAllColorCircle()}
+                {showAllColorCircle()}
+                {showAllColorCircle()}
+                {showAllColorCircle()}
+                {showAllColorCircle()}
+            </div>,
+            destination
+        )
+    </script>
+</body>
+
+</html>

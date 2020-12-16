@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter</title>
+    <style>
+        #container {
+            padding: 50px;
+            background-color: #FFF;
+        }
+    </style>
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="container">
+
+    </div>
+
+    <script type="text/babel">
+        let destination = document.querySelector('#container');
+
+        let Counter = (props) => {
+            let counterStyle = {
+                fontSize: 72,
+                fontFamlily: 'sans-serif',
+                color: '#333',
+                fontWeight: 'bold'
+            }
+            return (
+                <div style={counterStyle}>
+                    {props.display}
+                </div>
+            )
+        }
+
+        class CounterParent extends React.Component {
+            constructor() {
+                super();
+                this.state = {
+                    count: 0
+                }
+            }
+
+            render() {
+                let backgroundStyle = {
+                    padding: 50,
+                    backgroundColor: '#FFC53A',
+                    width: 250,
+                    height: 100,
+                    borderRadius: 10,
+                    textAlign: 'center'
+                }
+
+                let buttonStyle = {
+                    fontSize: '1em',
+                    width: 30,
+                    height: 30,
+                    fontFamlily: 'sans-serif',
+                    color: '#333',
+                    fontWeight: 'bold',
+                    lineWeight: '3px'
+                }
+
+                return (
+                    <div style={backgroundStyle}>
+                        <Counter display={this.state.count} />
+                        <button style={buttonStyle}>
+                            +
+                        </button>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <div>
+                <CounterParent />
+            </div>,
+            destination
+        )
+    </script>
+</body>
+
+</html>
