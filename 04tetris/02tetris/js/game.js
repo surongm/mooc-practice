@@ -122,11 +122,54 @@ var Game = function () {
         }
     }
 
-    // 下移
+    // // 下移
+    // var down = function () {
+    //     if (cur.canDown(isValid)) {
+    //         clearData();
+    //         cur.down();
+    //         setData();
+    //         refreshDiv(gameData, gameDivs);
+    //     }
+    // }
+
+    // 坠落
     var down = function () {
         if (cur.canDown(isValid)) {
             clearData();
             cur.down();
+            setData();
+            refreshDiv(gameData, gameDivs);
+            return true;
+        } else {
+            return false
+        }
+    }
+
+    // 左移
+    var left = function () {
+        if (cur.canLeft(isValid)) {
+            clearData();
+            cur.left();
+            setData();
+            refreshDiv(gameData, gameDivs);
+        }
+    }
+
+    // 右移
+    var right = function () {
+        if (cur.canRight(isValid)) {
+            clearData();
+            cur.right();
+            setData();
+            refreshDiv(gameData, gameDivs);
+        }
+    }
+
+    // 旋转
+    var rotate = function () {
+        if (cur.canRotate(isValid)) {
+            clearData();
+            cur.rotate();
             setData();
             refreshDiv(gameData, gameDivs);
         }
@@ -153,4 +196,8 @@ var Game = function () {
     // 导出API
     this.init = init;
     this.down = down;
+    this.left = left;
+    this.right = right;
+    this.rotate = rotate;
+    this.fall = function () { while (down()); };
 }
