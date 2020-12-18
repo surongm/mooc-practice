@@ -1,0 +1,55 @@
+/* 20行 * 10列 的游戏区域 */
+/* 每个小格20*20 */
+.game{
+    width: 200px;
+    height: 400px;
+    background-color: #F2FAFF;
+    border-left: 1px solid blue;
+    border-right: 1px solid blue;
+    border-bottom: 1px solid blue;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+/* 4 * 4 的next区域 */
+.next{
+    width: 80px;
+    height: 80px;
+    background-color: #F2FAFF;
+    position: absolute;
+    top: 10px;
+    left: 250px;
+    border: 1px solid blue;
+}
+
+.info{
+    position: absolute;
+    top: 100px;
+    left: 250px;
+}
+
+/* 每一个小方格都有三种状态 */
+/* none  什么都没有的小方块 */
+/* current  当前正在动的小方块 */
+/* none  已经落到底的小方块 */
+.none, .current, .done{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    box-sizing: border-box;
+}
+
+.none{
+    background-color: #F2FAFF;
+}
+
+.current{
+    background-color: pink;
+    border: 1px solid red;
+}
+
+.done{
+    background-color: gray;
+    border: 1px solid black;
+}
