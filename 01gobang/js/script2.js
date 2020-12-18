@@ -202,23 +202,23 @@ var computerAI = function () {
                     if (wins[i][j][k]) {
                         // 我方
                         if (myWin[k] == 1) {
-                            myScore[i][j] += 10;
+                            myScore[i][j] += 200;
                         } else if (myWin[k] == 2) {
-                            myScore[i][j] += 100;
-                        } else if (myWin[k] == 3) {
                             myScore[i][j] += 1000;
+                        } else if (myWin[k] == 3) {
+                            myScore[i][j] += 2000;
                         } else if (myWin[k] == 4) {
                             myScore[i][j] += 10000;
                         }
                         // 计算机
                         if (computerWin[k] == 1) {
-                            computerScore[i][j] += 11;
+                            computerScore[i][j] += 220;
                         } else if (computerWin[k] == 2) {
-                            computerScore[i][j] += 110;
+                            computerScore[i][j] += 840;
                         } else if (computerWin[k] == 3) {
-                            computerScore[i][j] += 1100;
+                            computerScore[i][j] += 2100;
                         } else if (computerWin[k] == 4) {
-                            computerScore[i][j] += 21000;
+                            computerScore[i][j] += 15000;
                         }
                     }
                 }
