@@ -5,9 +5,15 @@ var Local = function () {
     var game;
 
     // 时间间隔
-    var INTERVAL = 200;
+    var INTERVAL = 400;
+    // var INTERVAL = 200;
     // 定时器
     var timer = null;
+
+    // 时间计数器
+    var timeCount = 0;
+    // 时间
+    var time = 0;
 
     // 绑定键盘事件
     var bindKeyEvent = function () {
@@ -33,20 +39,37 @@ var Local = function () {
 
     // 移动 + 固定
     var move = function () {
+        timeFunc();
         if (!game.down()) {
             // 固定
             game.fixed();
             // 消行
-            game.checkClear();
+            // game.checkClear();
+            var line = game.checkClear();
+            if (line) {
+                game.addScore(line);
+            }
             // 游戏结束
             // game.checkGameOver();
             var gameOver = game.checkGameOver();
             if (gameOver) {
+                game.gameover();
+                // game.gameover(false);
                 stop();
             } else {
                 // 出现下一个方块
                 game.performNext(generateType(), generateDir());
             }
+        }
+    }
+
+    // 计时函数
+    var timeFunc = function () {
+        timeCount += 1;
+        if (timeCount == 5) {
+            timeCount = 0;
+            time += 1;
+            game.setTime(time);
         }
     }
 
@@ -67,6 +90,9 @@ var Local = function () {
         var doms = {
             gameDiv: document.getElementById('game'),
             nextDiv: document.getElementById('next'),
+            timeDiv: document.getElementById('time'),
+            scoreDiv: document.getElementById('score'),
+            resultDiv: document.getElementById('gameover'),
         }
         game = new Game();
         game.init(doms, generateType(), generateDir());

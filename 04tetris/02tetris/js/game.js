@@ -4,6 +4,12 @@ var Game = function () {
     // dom元素
     var gameDiv;
     var nextDiv;
+    var timeDiv;
+    var scoreDiv;
+    var resultDiv;
+
+    // 分数
+    var score = 0;
 
     // 游戏矩阵
     var gameData = [
@@ -190,6 +196,8 @@ var Game = function () {
 
     // 消行
     var checkClear = function () {
+        // 记录消了多少行
+        var line = 0;
         for (let i = gameData.length - 1; i >= 0; i--) {
             // 判断是否满足消行的条件
             var clear = true;
@@ -202,6 +210,7 @@ var Game = function () {
 
             // 消行 数据往下移
             if (clear) {
+                line += 1;
                 for (let m = i; m > 0; m--) {
                     for (let n = 0; n < gameData[0].length; n++) {
                         gameData[m][n] = gameData[m - 1][n];
@@ -214,6 +223,7 @@ var Game = function () {
                 i++;
             }
         }
+        return line;
     }
 
     // 检查游戏结束
@@ -237,10 +247,54 @@ var Game = function () {
         refreshDiv(next.data, nextDivs);
     }
 
+    // 设置时间
+    var setTime = function (time) {
+        timeDiv.innerHTML = time;
+    }
+
+    // 加分
+    var addScore = function (line) {
+        var s = 0;
+        switch (line) {
+            case 1:
+                s = 10;
+                break;
+            case 2:
+                s = 30;
+                break;
+            case 3:
+                s = 60;
+                break;
+            case 4:
+                s = 100;
+                break;
+            default:
+                break;
+        }
+        score += s;
+        scoreDiv.innerHTML = score;
+    }
+
+    // 游戏结束
+    var gameover = function () {
+        resultDiv.innerHTML = '游戏结束';
+    }
+
+    // var gameover = function (win) {
+    // if (win) {
+    //     resultDiv.innerHTML = '你赢了';
+    // } else {
+    //     resultDiv.innerHTML = '你输了';
+    // }
+    // }
+
     // 初始化方法
     var init = function (doms, type, dir) {
         gameDiv = doms.gameDiv;
         nextDiv = doms.nextDiv;
+        timeDiv = doms.timeDiv;
+        scoreDiv = doms.scoreDiv;
+        resultDiv = doms.resultDiv;
         next = SquareFactory.prototype.make(type, dir);
         initDiv(gameDiv, gameData, gameDivs);
         initDiv(nextDiv, next.data, nextDivs);
@@ -258,4 +312,7 @@ var Game = function () {
     this.performNext = performNext;
     this.checkClear = checkClear;
     this.checkGameOver = checkGameOver;
+    this.setTime = setTime;
+    this.addScore = addScore;
+    this.gameover = gameover;
 }
