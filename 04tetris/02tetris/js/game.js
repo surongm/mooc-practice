@@ -175,17 +175,75 @@ var Game = function () {
         }
     }
 
+    // 方块移动到底部，固定住
+    var fixed = function () {
+        for (let i = 0; i < cur.data.length; i++) {
+            for (let j = 0; j < cur.data[0].length; j++) {
+                if (check(cur.origin, i, j)) {
+                    if (gameData[cur.origin.x + i][cur.origin.y + j] == 2)
+                        gameData[cur.origin.x + i][cur.origin.y + j] = 1;
+                }
+            }
+        }
+        refreshDiv(gameData, gameDivs);
+    }
+
+    // 消行
+    var checkClear = function () {
+        for (let i = gameData.length - 1; i >= 0; i--) {
+            // 判断是否满足消行的条件
+            var clear = true;
+            for (let j = 0; j < gameData[0].length; j++) {
+                if (gameData[i][j] != 1) {
+                    clear = false;
+                    break;
+                }
+            }
+
+            // 消行 数据往下移
+            if (clear) {
+                for (let m = i; m > 0; m--) {
+                    for (let n = 0; n < gameData[0].length; n++) {
+                        gameData[m][n] = gameData[m - 1][n];
+                    }
+                }
+                // 第一行数据置为0
+                for (let n = 0; n < gameData[0].length; n++) {
+                    gameData[0][n] = 0;
+                }
+                i++;
+            }
+        }
+    }
+
+    // 检查游戏结束
+    var checkGameOver = function () {
+        var gameOver = false;
+        for (let i = 0; i < gameData[0].length; i++) {
+            // 第二行有数据就游戏结束
+            if (gameData[1][i] == 1) {
+                gameOver = true;
+            }
+        }
+        return gameOver;
+    }
+
+    // 使用下一个方块
+    var performNext = function (type, dir) {
+        cur = next;
+        setData();
+        next = SquareFactory.prototype.make(type, dir);
+        refreshDiv(gameData, gameDivs);
+        refreshDiv(next.data, nextDivs);
+    }
+
     // 初始化方法
-    var init = function (doms) {
+    var init = function (doms, type, dir) {
         gameDiv = doms.gameDiv;
         nextDiv = doms.nextDiv;
-        cur = SquareFactory.prototype.make(2, 2);
-        next = SquareFactory.prototype.make(3, 3);
+        next = SquareFactory.prototype.make(type, dir);
         initDiv(gameDiv, gameData, gameDivs);
         initDiv(nextDiv, next.data, nextDivs);
-
-        setData();
-        refreshDiv(gameData, gameDivs);
         refreshDiv(next.data, nextDivs);
     }
 
@@ -196,4 +254,8 @@ var Game = function () {
     this.right = right;
     this.rotate = rotate;
     this.fall = function () { while (down()); };
+    this.fixed = fixed;
+    this.performNext = performNext;
+    this.checkClear = checkClear;
+    this.checkGameOver = checkGameOver;
 }
