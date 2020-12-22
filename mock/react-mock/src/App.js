@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Mocktest from './components/Mocktest'
+import Mock from './components/Mock'
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
           Learn React
         </a>
       </header> */}
-      <Mocktest />
+      {/* <Mocktest /> */}
+      <Mock />
     </div>
   );
 }
