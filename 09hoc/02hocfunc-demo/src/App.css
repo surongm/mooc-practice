@@ -1,0 +1,29 @@
+/* .App {
+  text-align: center;
+} */
+
+.parent{
+  width: 500px;
+  height: 600px;
+  border: 1px solid brown;
+}
+
+.header {
+  position: relative;
+  height: 50px;
+  background-color: brown;
+  color: white;
+  font-weight: bold;
+  line-height: 50px;
+}
+
+.parent .msg{
+  display: inline-block;
+  padding-left: 10px;
+}
+
+.parent .close {
+  display: inline-block;
+  position: absolute;
+  right: 10px;
+}
