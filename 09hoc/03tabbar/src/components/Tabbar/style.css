@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.tabbar {
+    height: 60px;
+    padding: 10px 5px;
+    /* 置于底部 */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid rgb(235, 232, 232);
+}
+
+.tabbar-content{
+    display: flex;
+}
+
+.tarbar-item {
+    /* 每个flex元素是均分的 */
+    flex:1
+}
+
+.item-text{
+    font-size: 10px;
+}
+
+.iconfont {
+    font-size: 18px;
+    /* font-size: 28px !important; */
+}
+
+.active {
+    color: red !important;
+}

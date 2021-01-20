@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import parent from './Parent'
 
+@parent
 class ChildB extends Component {
     render() {
         return (
@@ -11,4 +12,5 @@ class ChildB extends Component {
     }
 }
 
-export default parent(ChildB)
+export default ChildB
+// export default parent(ChildB)
