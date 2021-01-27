@@ -9,7 +9,6 @@ class Car extends Component {
                 <div className='bg'>
                     <img src={carbg} alt='购物车' />
                 </div>
-                <Tabbar />
             </div>
         )
     }

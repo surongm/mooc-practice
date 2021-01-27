@@ -16,6 +16,11 @@
     border: 1px solid rgb(235, 232, 232);
 }
 
+.tabbar-children{
+    /* 加个滚动条 */
+  margin-bottom: 60px;
+}
+
 .tabbar-content{
     display: flex;
 }

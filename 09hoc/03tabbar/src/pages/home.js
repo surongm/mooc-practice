@@ -3,7 +3,7 @@ import tabbar from '../components/Tabbar'
 import homebg from '../static/images/home.png'
 
 @tabbar
-export default class Home extends Component {
+class Home extends Component {
     render() {
         return (
             <div>
@@ -12,8 +12,9 @@ export default class Home extends Component {
                     {/* <img src={require("../static/images/home.png")} alt='' /> */}
                     <img src={homebg} alt='首页' />
                 </div>
-                <Tabbar />
             </div>
         )
     }
 }
+
+export default Home

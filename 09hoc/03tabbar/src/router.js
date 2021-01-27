@@ -7,7 +7,7 @@ import {
     User
 } from './pages'
 
-export default () => {
+const RouterMap = () => {
     return (
         <Router>
             <Switch>
@@ -19,3 +19,5 @@ export default () => {
         </Router>
     )
 }
+
+export default RouterMap
